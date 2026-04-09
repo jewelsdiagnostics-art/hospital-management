@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50">
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="bg-blue-600 text-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <i class="fas fa-hospital text-2xl mr-3"></i>
+                        <h1 class="text-xl font-bold">MediCare Hospital Management</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span id="datetime" class="text-sm"></span>
+                        <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm">
+                            <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sidebar Navigation -->
+        <div class="flex">
+            <aside class="w-64 bg-gray-800 text-white min-h-screen">
+                <div class="p-4">
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" onclick="showSection('dashboard')" class="flex items-center p-3 rounded hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-tachometer-alt mr-3"></i> Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('patients')" class="flex items-center p-3 rounded hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-users mr-3"></i> Patients
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('appointments')" class="flex items-center p-3 rounded hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-calendar-alt mr-3"></i> Appointments
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('pharmacy')" class="flex items-center p-3 rounded hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-pills mr-3"></i> Pharmacy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('billing')" class="flex items-center p-3 rounded hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-file-invoice-dollar mr-3"></i> Billing
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('inventory')" class="flex items-center p-3 rounded hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-warehouse mr-3"></i> Inventory
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('reports')" class="flex items-center p-3 rounded hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-chart-bar mr-3"></i> Reports
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-6">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section">
+                    <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-500 text-sm">Total Patients</p>
+                                    <p class="text-2xl font-bold text-blue-600">1,234</p>
+                                </div>
+                                <i class="fas fa-users text-3xl text-blue-500"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-500 text-sm">Today's Appointments</p>
+                                    <p class="text-2xl font-bold text-green-600">45</p>
+                                </div>
+                                <i class="fas fa-calendar-check text-3xl text-green-500"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-500 text-sm">Pharmacy Sales</p>
+                                    <p class="text-2xl font-bold text-purple-600">$12,450</p>
+                                </div>
+                                <i class="fas fa-pills text-3xl text-purple-500"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-500 text-sm">Pending Bills</p>
+                                    <p class="text-2xl font-bold text-orange-600">23</p>
+                                </div>
+                                <i class="fas fa-file-invoice text-3xl text-orange-500"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                <div class="flex items-center">
+                                    <i class="fas fa-user-plus text-blue-500 mr-3"></i>
+                                    <span>New patient registered: John Doe</span>
+                                </div>
+                                <span class="text-gray-500 text-sm">2 mins ago</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                <div class="flex items-center">
+                                    <i class="fas fa-pills text-green-500 mr-3"></i>
+                                    <span>Prescription filled: Amoxicillin 500mg</span>
+                                </div>
+                                <span class="text-gray-500 text-sm">15 mins ago</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                <div class="flex items-center">
+                                    <i class="fas fa-calendar text-purple-500 mr-3"></i>
+                                    <span>Appointment scheduled: Dr. Smith - 10:30 AM</span>
+                                </div>
+                                <span class="text-gray-500 text-sm">1 hour ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Patients Section -->
+                <section id="patients" class="content-section hidden">
+                    <h2 class="text-2xl font-bold mb-6">Patient Management</h2>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <button onclick="openPatientModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                                <i class="fas fa-plus mr-2"></i>Add New Patient
+                            </button>
+                            <div class="flex items-center space-x-2">
+                                <input type="text" placeholder="Search patients..." class="border rounded px-3 py-2" id="patientSearch">
+                                <button class="bg-gray-200 px-3 py-2 rounded hover:bg-gray-300">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full table-auto">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="px-4 py-2 text-left">Patient ID</th>
+                                        <th class="px-4 py-2 text-left">Name</th>
+                                        <th class="px-4 py-2 text-left">Age</th>
+                                        <th class="px-4 py-2 text-left">Gender</th>
+                                        <th class="px-4 py-2 text-left">Phone</th>
+                                        <th class="px-4 py-2 text-left">Blood Group</th>
+                                        <th class="px-4 py-2 text-left">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="patientsTableBody">
+                                    <!-- Patient rows will be added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Appointments Section -->
+                <section id="appointments" class="content-section hidden">
+                    <h2 class="text-2xl font-bold mb-6">Appointment Scheduling</h2>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <button onclick="openAppointmentModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                                <i class="fas fa-plus mr-2"></i>Schedule Appointment
+                            </button>
+                            <div class="flex items-center space-x-2">
+                                <input type="date" class="border rounded px-3 py-2" id="appointmentDate">
+                                <button onclick="filterAppointments()" class="bg-gray-200 px-3 py-2 rounded hover:bg-gray-300">
+                                    <i class="fas fa-filter"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Today's Schedule</h3>
+                                <div id="todayAppointments" class="space-y-2">
+                                    <!-- Today's appointments will be added here -->
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Upcoming Appointments</h3>
+                                <div id="upcomingAppointments" class="space-y-2">
+                                    <!-- Upcoming appointments will be added here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pharmacy Section -->
+                <section id="pharmacy" class="content-section hidden">
+                    <h2 class="text-2xl font-bold mb-6">Pharmacy Management</h2>
+                    
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-lg font-semibold mb-4">Prescription Processing</h3>
+                            <div class="space-y-3" id="prescriptionQueue">
+                                <!-- Prescription queue items will be added here -->
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-lg font-semibold mb-4">Medicine Search</h3>
+                            <div class="mb-4">
+                                <input type="text" placeholder="Search medicines..." class="w-full border rounded px-3 py-2" id="medicineSearch">
+                            </div>
+                            <div id="medicineResults" class="space-y-2">
+                                <!-- Medicine search results will be added here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Billing Section -->
+                <section id="billing" class="content-section hidden">
+                    <h2 class="text-2xl font-bold mb-6">Billing & Payments</h2>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <button onclick="generateBill()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                                <i class="fas fa-file-invoice mr-2"></i>Generate Bill
+                            </button>
+                            <div class="flex items-center space-x-2">
+                                <select class="border rounded px-3 py-2">
+                                    <option>All Bills</option>
+                                    <option>Pending</option>
+                                    <option>Paid</option>
+                                    <option>Overdue</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full table-auto">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="px-4 py-2 text-left">Bill ID</th>
+                                        <th class="px-4 py-2 text-left">Patient</th>
+                                        <th class="px-4 py-2 text-left">Amount</th>
+                                        <th class="px-4 py-2 text-left">Date</th>
+                                        <th class="px-4 py-2 text-left">Status</th>
+                                        <th class="px-4 py-2 text-left">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="billingTableBody">
+                                    <!-- Billing rows will be added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Inventory Section -->
+                <section id="inventory" class="content-section hidden">
+                    <h2 class="text-2xl font-bold mb-6">Inventory Management</h2>
+                    
+                    <!-- CSV Upload Portal -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-lg font-semibold mb-4">
+                            <i class="fas fa-upload mr-2 text-blue-600"></i>Import Inventory Items (CSV)
+                        </h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div>
+                                <div id="csvDropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition-colors cursor-pointer">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                                    <p class="text-gray-600 mb-2">Drag and drop CSV file here or click to browse</p>
+                                    <input type="file" id="csvFileInput" accept=".csv" class="hidden">
+                                    <button onclick="document.getElementById('csvFileInput').click()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                                        <i class="fas fa-folder-open mr-2"></i>Choose File
+                                    </button>
+                                </div>
+                                <div id="csvFileInfo" class="mt-4 hidden">
+                                    <p class="text-sm text-gray-600">
+                                        <strong>Selected file:</strong> <span id="csvFileName"></span>
+                                    </p>
+                                    <p class="text-sm text-gray-600">
+                                        <strong>File size:</strong> <span id="csvFileSize"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-3">CSV Format Requirements:</h4>
+                                <div class="bg-gray-50 p-4 rounded text-sm">
+                                    <p class="mb-2">Your CSV file should contain the following columns:</p>
+                                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                                        <li><code>name</code> - Item name</li>
+                                        <li><code>category</code> - Item category</li>
+                                        <li><code>stock</code> - Current stock quantity</li>
+                                        <li><code>unitPrice</code> - Price per unit</li>
+                                        <li><code>reorderLevel</code> - Reorder threshold</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-4">
+                                    <button onclick="downloadSampleCSV()" class="text-blue-600 hover:text-blue-800 text-sm">
+                                        <i class="fas fa-download mr-1"></i>Download Sample CSV
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-end">
+                            <button onclick="uploadCSV()" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 disabled:bg-gray-400" id="uploadBtn" disabled>
+                                <i class="fas fa-upload mr-2"></i>Upload and Import
+                            </button>
+                        </div>
+                        <div id="csvUploadStatus" class="mt-4 hidden">
+                            <!-- Upload status messages will appear here -->
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <button onclick="addInventoryItem()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+                                <i class="fas fa-plus mr-2"></i>Add Item
+                            </button>
+                            <div class="flex items-center space-x-2">
+                                <input type="text" placeholder="Search inventory..." class="border rounded px-3 py-2">
+                                <button class="bg-gray-200 px-3 py-2 rounded hover:bg-gray-300">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full table-auto">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="px-4 py-2 text-left">Item Name</th>
+                                        <th class="px-4 py-2 text-left">Category</th>
+                                        <th class="px-4 py-2 text-left">Stock</th>
+                                        <th class="px-4 py-2 text-left">Unit Price</th>
+                                        <th class="px-4 py-2 text-left">Reorder Level</th>
+                                        <th class="px-4 py-2 text-left">Status</th>
+                                        <th class="px-4 py-2 text-left">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventoryTableBody">
+                                    <!-- Inventory rows will be added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reports Section -->
+                <section id="reports" class="content-section hidden">
+                    <h2 class="text-2xl font-bold mb-6">Reports & Analytics</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-lg font-semibold mb-4">Revenue Overview</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span>Daily Revenue</span>
+                                    <span class="font-bold text-green-600">$3,450</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Weekly Revenue</span>
+                                    <span class="font-bold text-blue-600">$24,150</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Monthly Revenue</span>
+                                    <span class="font-bold text-purple-600">$96,600</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-lg font-semibold mb-4">Patient Statistics</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span>New Patients (This Month)</span>
+                                    <span class="font-bold text-blue-600">145</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Returning Patients</span>
+                                    <span class="font-bold text-green-600">892</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Total Visits</span>
+                                    <span class="font-bold text-purple-600">2,341</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+                        <h3 class="text-lg font-semibold mb-4">Generate Reports</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <button class="bg-gray-100 p-4 rounded hover:bg-gray-200 text-left">
+                                <i class="fas fa-file-pdf text-red-500 mr-2"></i>Patient Reports
+                            </button>
+                            <button class="bg-gray-100 p-4 rounded hover:bg-gray-200 text-left">
+                                <i class="fas fa-file-pdf text-red-500 mr-2"></i>Financial Reports
+                            </button>
+                            <button class="bg-gray-100 p-4 rounded hover:bg-gray-200 text-left">
+                                <i class="fas fa-file-pdf text-red-500 mr-2"></i>Inventory Reports
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="patientModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 class="text-lg font-semibold mb-4">Add New Patient</h3>
+            <form id="patientForm">
+                <div class="space-y-4">
+                    <input type="text" placeholder="Full Name" class="w-full border rounded px-3 py-2" required>
+                    <input type="number" placeholder="Age" class="w-full border rounded px-3 py-2" required>
+                    <select class="w-full border rounded px-3 py-2" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <input type="tel" placeholder="Phone Number" class="w-full border rounded px-3 py-2" required>
+                    <input type="email" placeholder="Email" class="w-full border rounded px-3 py-2">
+                    <select class="w-full border rounded px-3 py-2" required>
+                        <option value="">Select Blood Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                    <textarea placeholder="Medical History" class="w-full border rounded px-3 py-2" rows="3"></textarea>
+                </div>
+                <div class="flex justify-end space-x-2 mt-6">
+                    <button type="button" onclick="closePatientModal()" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Cancel</button>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save Patient</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="appointmentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 class="text-lg font-semibold mb-4">Schedule Appointment</h3>
+            <form id="appointmentForm">
+                <div class="space-y-4">
+                    <select class="w-full border rounded px-3 py-2" required>
+                        <option value="">Select Patient</option>
+                        <option value="1">John Doe</option>
+                        <option value="2">Jane Smith</option>
+                    </select>
+                    <select class="w-full border rounded px-3 py-2" required>
+                        <option value="">Select Doctor</option>
+                        <option value="1">Dr. Smith - Cardiology</option>
+                        <option value="2">Dr. Johnson - Neurology</option>
+                        <option value="3">Dr. Williams - Pediatrics</option>
+                    </select>
+                    <input type="date" class="w-full border rounded px-3 py-2" required>
+                    <input type="time" class="w-full border rounded px-3 py-2" required>
+                    <select class="w-full border rounded px-3 py-2" required>
+                        <option value="">Select Type</option>
+                        <option value="consultation">Consultation</option>
+                        <option value="followup">Follow-up</option>
+                        <option value="emergency">Emergency</option>
+                    </select>
+                    <textarea placeholder="Notes" class="w-full border rounded px-3 py-2" rows="3"></textarea>
+                </div>
+                <div class="flex justify-end space-x-2 mt-6">
+                    <button type="button" onclick="closeAppointmentModal()" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Cancel</button>
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Schedule</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
